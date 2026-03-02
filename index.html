@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GIEBEL Finder — Product Release</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --navy: #081755;
+            --elec-blue: #039dec;
+            --mid-blue: #01459d;
+            --white: #ffffff;
+            --red: #fc3e1e;
+            --bg-main: #fcfcfc;
+            --bg-alt: #f3f3f3;
+            --text-dark: #081755;
+            --text-muted: #5c4f3f;
+            --border: rgba(8, 23, 85, 0.1);
+            --font-light: 300;
+            --font-regular: 400;
+            --font-bold: 700;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Roboto Condensed', sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-dark);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            background-image: radial-gradient(var(--border) 1px, transparent 1px);
+            background-size: 32px 32px;
+        }
+
+        h1, h2, h3 {
+            line-height: 1.1;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .layout {
+            display: flex;
+            min-height: 100vh;
+            background: radial-gradient(circle at top center, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 80%);
+        }
+
+        .content {
+            padding: 0 0 120px 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 60px;
+        }
+
+        .hero {
+            padding: 120px 0 60px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            text-align: left;
+        }
+
+        .hero h1 {
+            font-size: clamp(2rem, 4vw, 3.2rem);
+            font-weight: var(--font-light);
+            letter-spacing: -1px;
+            margin-bottom: 24px;
+            max-width: 100%;
+            white-space: nowrap;
+        }
+
+        .hero h1 .bold {
+            font-weight: var(--font-bold);
+        }
+
+        .hero h1 .regular {
+            font-weight: var(--font-regular);
+        }
+
+        .hero h1 sup {
+            font-size: 0.4em;
+            vertical-align: super;
+            margin-left: 2px;
+        }
+
+        .hero-fade-in {
+            opacity: 1;
+        }
+
+        .hero-fade-in-delayed {
+            opacity: 1;
+        }
+
+        .hero .lead {
+            font-size: clamp(1.2rem, 2vw, 1.5rem);
+            font-weight: var(--font-light);
+            color: var(--text-muted);
+            max-width: 800px;
+            margin-bottom: 48px;
+            line-height: 1.5;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--elec-blue);
+            color: var(--navy);
+            padding: 18px 42px;
+            font-size: 1rem;
+            font-weight: var(--font-bold);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 50px;
+            border: none;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: var(--navy);
+            color: var(--white);
+        }
+
+        .release-meta {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin-bottom: 24px;
+            font-weight: var(--font-regular);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .feature-block {
+            padding: 120px 0;
+        }
+
+        .feature-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 80px;
+        }
+
+        .feature-block.centered .feature-wrapper {
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .feature-block.centered .feature-text {
+            align-items: center;
+        }
+
+        .feature-block.right-align .feature-wrapper {
+            flex-direction: row;
+        }
+
+        .feature-block.left-align .feature-wrapper {
+            flex-direction: row-reverse;
+        }
+
+        .feature-text {
+            flex: 1;
+            min-width: 40%;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .feature-media {
+            flex: 1.5;
+            min-width: 50%;
+            width: 100%;
+        }
+
+        .feature-tag {
+            font-size: 0.8rem;
+            font-weight: var(--font-bold);
+            color: var(--elec-blue);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 16px;
+            display: inline-block;
+        }
+
+        .feature-text h2 {
+            font-size: clamp(2.2rem, 4vw, 3.5rem);
+            font-weight: var(--font-light);
+            margin-bottom: 24px;
+            letter-spacing: -0.5px;
+        }
+
+        .feature-text p {
+            font-size: 1.15rem;
+            font-weight: var(--font-light);
+            color: var(--text-muted);
+            max-width: 600px;
+        }
+
+        .faq-section {
+            padding: 80px 0;
+            background-color: var(--bg-main);
+        }
+
+        .faq-accordion {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-top: 40px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .faq-item {
+            background-color: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: all 0.2s ease;
+        }
+
+        .faq-item[open] {
+            border-color: var(--elec-blue);
+            box-shadow: 0 4px 12px rgba(3, 157, 236, 0.1);
+        }
+
+        .faq-item summary {
+            padding: 24px;
+            font-size: 1.15rem;
+            font-weight: var(--font-regular);
+            color: var(--navy);
+            cursor: pointer;
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-item summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .faq-item summary::after {
+            content: '+';
+            color: var(--elec-blue);
+            font-size: 1.5rem;
+            font-weight: var(--font-light);
+            transition: transform 0.2s ease;
+        }
+
+        .faq-item[open] summary::after {
+            transform: rotate(45deg);
+        }
+
+        .faq-item p {
+            padding: 0 24px 24px;
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            font-weight: var(--font-light);
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .cta-section {
+            padding: 60px 0 0;
+            text-align: center;
+        }
+
+        .cta-content {
+            padding-bottom: 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .cta-content h2 {
+            font-size: clamp(2.5rem, 4vw, 3.5rem);
+            font-weight: var(--font-light);
+            margin-bottom: 24px;
+        }
+
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 40px 0;
+            display: flex;
+            align-items: center;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: var(--font-bold);
+            margin-top: auto;
+        }
+
+        .footer-tagline {
+            color: var(--elec-blue);
+            font-weight: var(--font-bold);
+            letter-spacing: 2px;
+            margin-left: auto;
+            text-align: right;
+        }
+
+        .scroll-reveal {
+            opacity: 1;
+            transform: none;
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .scroll-reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .scroll-reveal.reveal-fallback {
+            opacity: 1;
+            transform: none;
+        }
+
+        .floating-cta {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+            box-shadow: 0 10px 30px rgba(3, 157, 236, 0.3);
+            display: inline-flex;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .hero h1 {
+                font-size: 2.2rem;
+                white-space: normal;
+            }
+            .faq-accordion {
+                gap: 24px;
+            }
+            .container {
+                padding: 0 32px;
+            }
+            .hero {
+                padding: 80px 0 40px;
+                text-align: left;
+                align-items: flex-start;
+            }
+            .hero h1 {
+                font-size: 3rem;
+            }
+            .feature-wrapper {
+                padding: 40px 32px;
+            }
+            .feature-text {
+                text-align: left;
+            }
+            .feature-text p {
+                margin: 0;
+            }
+            footer {
+                flex-direction: column;
+                gap: 16px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="layout">
+        <main class="content" style="width: 100%;">
+
+            <section id="hero" class="hero container scroll-reveal">
+                <div class="release-meta hero-fade-in">
+                    <span class="date">March 1, 2026</span>
+                    <span>&bull;</span>
+                    <span class="author">By Justin Nelson</span>
+                    <span>&bull;</span>
+                    <span>Atlanta, GA</span>
+                </div>
+                <h1 class="hero-fade-in">A path to the right <span class="bold">GIEBEL</span> <span class="regular">Adsorber<sup>&reg;</sup></span></h1>
+                <p class="lead hero-fade-in-delayed">Built to make specification extraordinarily precise, Finder is a new way to calculate the right adsorber for your machine.</p>
+                <div class="hero-actions hero-fade-in-delayed">
+                    <a href="/finder" class="btn">Start Configuring &rarr;</a>
+                </div>
+
+                <div style="display: flex; align-items: flex-start; gap: 60px; margin-top: 60px;">
+                    <div style="flex: 0 0 55%; border-radius: 12px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.08);">
+                        <div style="position:relative; width:100%; height:0px; padding-bottom:62.284%"><iframe allow="fullscreen;autoplay" allowfullscreen height="100%" src="https://streamable.com/e/z5vxp8?autoplay=1" width="100%" style="border:none; width:100%; height:100%; position:absolute; left:0px; top:0px; overflow:hidden;"></iframe></div>
+                    </div>
+                    <div style="flex: 1; padding-top: 12px;">
+                        <span class="feature-tag">Feature 01</span>
+                        <h2 style="font-size: clamp(1.8rem, 3vw, 2.8rem); font-weight: var(--font-light); margin: 12px 0 20px; letter-spacing: -0.5px;">Guided parameter flow.</h2>
+                        <p style="font-size: 1.05rem; font-weight: var(--font-light); color: var(--text-muted); line-height: 1.7;">
+                            Answer a few questions about your machine — oil capacity, headspace, and operating conditions — and Finder does the rest. In five steps, you get a direct adsorber recommendation built specifically for your application.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="system-02" class="feature-block scroll-reveal right-align">
+                <div class="container">
+                    <div class="feature-wrapper" style="align-items: center;">
+                        <div class="feature-text">
+                            <span class="feature-tag">Feature 02</span>
+                            <h2>Inspect the details.</h2>
+                            <p>See pressure ratio curves, available size options, adapter connection types, and dimensional clearance data — all formatted precisely for your application context.</p>
+                        </div>
+                        <div class="feature-media" style="display: flex; justify-content: flex-end; align-items: center;">
+                            <div class="stack-windows" style="position: relative; padding-bottom: 28%;">
+                                <div style="width: 70%; position: relative; z-index: 1; border-radius: 10px; overflow: hidden; box-shadow: 0 12px 40px rgba(8,23,85,0.08);">
+                                    <div style="position:relative; width:100%; height:0px; padding-bottom:103.889%"><iframe allow="fullscreen;autoplay" allowfullscreen height="100%" src="https://streamable.com/e/87p788?autoplay=1" width="100%" style="border:none; width:100%; height:100%; position:absolute; left:0px; top:0px; overflow:hidden;"></iframe></div>
+                                </div>
+                                <div style="width: 65%; position: absolute; bottom: -8%; right: -6%; z-index: 2; border-radius: 10px; overflow: hidden; box-shadow: 0 16px 48px rgba(8,23,85,0.12);">
+                                    <div style="position:relative; width:100%; height:0px; padding-bottom:103.889%"><iframe allow="fullscreen;autoplay" allowfullscreen height="100%" src="https://streamable.com/e/ehsqna?autoplay=1" width="100%" style="border:none; width:100%; height:100%; position:absolute; left:0px; top:0px; overflow:hidden;"></iframe></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="system-03" class="feature-block centered scroll-reveal">
+                <div class="container">
+                    <div class="feature-wrapper">
+                        <div class="feature-text">
+                            <span class="feature-tag">Feature 03</span>
+                            <h2>Intelligent Assistant Mode.</h2>
+                            <p>Need dynamic troubleshooting or strategic planning? Chat Mode provides a deep-reasoning agent capable of synthesizing robust system designs, reviewing past sizing states, and exporting complex reports instantly.</p>
+                        </div>
+                        <div class="feature-media" style="width: 100%; margin-top: 40px;">
+                            <div style="border-radius: 12px; overflow: hidden; box-shadow: 0 16px 48px rgba(0,0,0,0.07); background-color: #0b1120;">
+                                <div style="position:relative; width:100%; height:0px; padding-bottom:62.284%"><iframe allow="fullscreen;autoplay" allowfullscreen height="100%" src="https://streamable.com/e/312edm?autoplay=1" width="100%" style="border:none; width:100%; height:100%; position:absolute; left:0px; top:0px; overflow:hidden;"></iframe></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="system-04" class="feature-block left-align scroll-reveal">
+                <div class="container">
+                    <div class="feature-wrapper">
+                        <div class="feature-text">
+                            <span class="feature-tag">Feature 04</span>
+                            <h2>Know the difference.</h2>
+                            <p>Understanding the difference between Basic, Eco, and Premium configurations is now immediate. View direct feature comparisons formatted specifically for your operating context.</p>
+                        </div>
+                        <div class="feature-media">
+                            <div style="border-radius: 12px; overflow: hidden; box-shadow: 0 16px 48px rgba(0,0,0,0.07); background-color: #0b1120;">
+                                <div style="position:relative; width:100%; height:0px; padding-bottom:74.844%"><iframe allow="fullscreen;autoplay" allowfullscreen height="100%" src="https://streamable.com/e/zg0r6i?autoplay=1" width="100%" style="border:none; width:100%; height:100%; position:absolute; left:0px; top:0px; overflow:hidden;"></iframe></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="container scroll-reveal" style="padding: 100px 0;">
+                <div style="max-width: 680px; margin: 0 auto; border-left: 3px solid var(--elec-blue); padding-left: 36px;">
+                    <span style="font-size: 0.75rem; font-weight: var(--font-bold); color: var(--elec-blue); text-transform: uppercase; letter-spacing: 2px; display: block; margin-bottom: 24px;">Editor's Note</span>
+                    <p style="font-size: 1.2rem; font-weight: var(--font-light); color: var(--navy); line-height: 1.8; margin-bottom: 24px;">How do we simplify this for everyone?</p>
+                    <p style="font-size: 1rem; font-weight: var(--font-light); color: var(--text-muted); line-height: 1.8; margin-bottom: 20px;">Getting sales teams, engineers, and distributors aligned on when to apply a desiccant breather — and which one — can slow down projects and create gaps in the specification process. The questions that follow require a whole separate level of technical understanding.</p>
+                    <p style="font-size: 1rem; font-weight: var(--font-light); color: var(--text-muted); line-height: 1.8; margin-bottom: 20px;">We've spent years building that knowledge. With Finder, we're making it accessible. Guided Mode compresses a complex recommendation into five deliberate steps. The Chat Interface gives engineers, dealers, and end-users deeply informed answers from a single prompt.</p>
+                    <p style="font-size: 1rem; font-weight: var(--font-light); color: var(--text-muted); line-height: 1.8; margin-bottom: 32px;">Finder is built to serve the entire chain — manufacturers, sales teams, distributors, and end-users. Our intelligence, for the whole industry.</p>
+                    <div style="display: flex; flex-direction: column; gap: 8px;">
+                        <span style="font-size: 0.9rem; font-weight: var(--font-bold); color: var(--navy); letter-spacing: 0.5px;">— Justin Nelson, GIEBEL FilTec</span>
+                        <span style="font-size: 0.8rem; font-weight: var(--font-light); color: var(--text-muted); font-style: italic; letter-spacing: 0.3px;">v1 Access &mdash; Future updates expected.</span>
+                    </div>
+                </div>
+            </section>
+
+            <section id="faq" class="faq-section container scroll-reveal">
+                <div class="section-header">
+                    <span class="feature-tag" style="color: var(--navy);">Feature 05</span>
+                    <h2>Technical FAQ</h2>
+                </div>
+                <div class="faq-accordion">
+                    <details class="faq-item">
+                        <summary>What is the difference between the 3 Chat Models?</summary>
+                        <p>Finder utilizes three distinct, specialized AI models. <strong>Engineer</strong> is optimized for finding and recommending your adsorber when you have specific custom applications or dimensions that aren't covered in Guided Mode. <strong>Explorer</strong> is for general questions (e.g., why is my adsorber turning orange, or asking it what the equivalent of a Vario is to our new modern adsorbers). <strong>Axis</strong> is an internal mode used for deep research, projections, specialized questions, and strategic planning.</p>
+                    </details>
+                    <details class="faq-item">
+                        <summary>How does the Guided Mode calculate the right adsorber?</summary>
+                        <p>The Guided Mode uses a deterministic constraint engine. It takes your physical machine inputs—such as headspace volume, oil capacity, and operating temperature—and calculates the precise airflow and moisture capacity needed, filtering the catalog to only show mechanically compatible units.</p>
+                    </details>
+                    <details class="faq-item">
+                        <summary>When should I use Guided Flow vs. Chat Mode?</summary>
+                        <p><strong>Guided Flow</strong> is a step-by-step, calculator-driven constraint engine ideal when you have specific parameter inputs and need a direct, deterministic hardware recommendation. <strong>Chat Mode</strong> is designed for open-ended exploration, troubleshooting edge cases, querying internal documentation, and designing custom setups without strict numerical bounds.</p>
+                    </details>
+                    <details class="faq-item">
+                        <summary>Can I save and share my calculation results?</summary>
+                        <p>Yes. Every configured system, chat session, and tier comparison generates a unique state that can be instantly captured. You can export detailed PDF technical reports or share direct links with your engineering team to review the exact specifications and reasoning that led to a specific adsorber recommendation.</p>
+                    </details>
+                </div>
+            </section>
+
+            <section id="access" class="cta-section container scroll-reveal">
+                <div class="cta-content">
+                    <h2>Ready to specify?</h2>
+                    <a href="/finder" class="btn">Launch Finder Application</a>
+                </div>
+                <footer>
+                    <span>&copy; <span id="current-year">2026</span> GIEBEL FilTec Inc.</span>
+                    <span class="footer-tagline">No machine has to die due to corrosion.</span>
+                </footer>
+            </section>
+
+        </main>
+    </div>
+
+    <a href="/finder" class="btn floating-cta" id="floating-btn">Launch App</a>
+
+    <script>
+        (function() {
+            function run() {
+                try {
+                    var el = document.getElementById('current-year');
+                    if (el) el.textContent = new Date().getFullYear();
+
+                    var reveals = document.querySelectorAll('.scroll-reveal');
+                    var revealObserver = new IntersectionObserver(function(entries) {
+                        entries.forEach(function(entry) {
+                            if (entry.isIntersecting) {
+                                entry.target.classList.add('visible');
+                                revealObserver.unobserve(entry.target);
+                            }
+                        });
+                    }, { rootMargin: '0px 0px -100px 0px' });
+                    reveals.forEach(function(el) { revealObserver.observe(el); });
+
+                    var floatingBtn = document.getElementById('floating-btn');
+                    if (floatingBtn) {
+                        window.addEventListener('scroll', function() {
+                            floatingBtn.style.display = window.scrollY > 300 ? 'inline-flex' : 'none';
+                        });
+                    }
+
+                    setTimeout(function() {
+                        reveals.forEach(function(el) {
+                            if (!el.classList.contains('visible')) {
+                                el.classList.add('reveal-fallback');
+                            }
+                        });
+                    }, 1500);
+                } catch (e) {
+                    document.querySelectorAll('.scroll-reveal').forEach(function(el) {
+                        el.classList.add('reveal-fallback');
+                    });
+                }
+            }
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', run);
+            } else {
+                run();
+            }
+        })();
+    </script>
+</body>
+
+</html>
